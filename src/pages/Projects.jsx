@@ -6,10 +6,10 @@ import { FaSearch, FaExternalLinkAlt, FaArrowRight } from 'react-icons/fa';
 const projects = [
   {
     id: 1,
-    title: 'Luxury Villa Windows',
+    title: 'Nairobi Residential Tower',
     category: 'residential',
-    description: 'Custom aluminum windows for a modern luxury villa with energy-efficient glass.',
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1453&q=80',
+    description: 'A modern residential tower with aluminum windows and doors.',
+    image: '/assets/projects/pic 15.jpeg',
     tags: ['Windows', 'Residential', 'Energy Efficient']
   },
   {
@@ -17,7 +17,7 @@ const projects = [
     title: 'Office Glass Partitions',
     category: 'commercial',
     description: 'Modern glass partitions for a corporate office space, enhancing natural light and collaboration.',
-    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    image: '/assets/projects/pic 13.jpeg',
     tags: ['Partitions', 'Commercial', 'Modern Design']
   },
   {
@@ -25,7 +25,7 @@ const projects = [
     title: 'Glass Balustrades',
     category: 'residential',
     description: 'Elegant glass balustrades for a luxury apartment complex.',
-    image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    image: '/assets/projects/pic 4.jpeg',
     tags: ['Balustrades', 'Residential', 'Luxury']
   },
   {
@@ -33,7 +33,7 @@ const projects = [
     title: 'Shopping Mall Facade',
     category: 'commercial',
     description: 'Impressive glass facade for a modern shopping mall.',
-    image: 'https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    image: '/assets/projects/pic 19.jpeg',
     tags: ['Facade', 'Commercial', 'Large Scale']
   },
   {
@@ -41,15 +41,15 @@ const projects = [
     title: 'Penthouse Windows & Doors',
     category: 'residential',
     description: 'Panoramic windows and sliding doors for a luxury penthouse with stunning city views.',
-    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80',
+    image: '/assets/projects/pic 16.jpeg',
     tags: ['Windows', 'Doors', 'Luxury']
   },
   {
     id: 6,
-    title: 'Hotel Lobby Partitions',
+    title: 'Strip mall facade',
     category: 'commercial',
-    description: 'Elegant glass partitions for a 5-star hotel lobby.',
-    image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    description: 'Elegant glass facade for subarban strip mall .',
+    image: '/assets/projects/pic 20.jpeg',
     tags: ['Partitions', 'Commercial', 'Hospitality']
   },
 ];
@@ -57,6 +57,7 @@ const projects = [
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [previewProject, setPreviewProject] = useState(null);
 
   const categories = [
     { id: 'all', name: 'All Projects' },
@@ -136,7 +137,11 @@ const Projects = () => {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <button className="bg-white text-accent p-3 rounded-full hover:bg-accent hover:text-white transition-colors">
+                      <button
+                        type="button"
+                        onClick={() => setPreviewProject(project)}
+                        className="bg-white text-accent p-3 rounded-full hover:bg-accent hover:text-white transition-colors"
+                      >
                         <FaExternalLinkAlt className="text-xl" />
                       </button>
                     </div>
@@ -186,6 +191,44 @@ const Projects = () => {
           </button>
         </div>
       </section>
+
+      {previewProject && (
+        <div
+          className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4"
+          onClick={() => setPreviewProject(null)}
+        >
+          <div
+            className="bg-white rounded-lg max-w-4xl w-full overflow-hidden relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className="absolute top-4 right-4 bg-black/60 text-white hover:bg-black px-3 py-1 rounded-full text-sm"
+              onClick={() => setPreviewProject(null)}
+            >
+              Close
+            </button>
+            <div className="bg-gray-100 flex items-center justify-center">
+              <img
+                src={previewProject.image}
+                alt={previewProject.title}
+                className="max-h-[70vh] w-full object-contain"
+              />
+            </div>
+            <div className="p-6">
+              <h3 className="text-2xl font-bold mb-2 text-primary">{previewProject.title}</h3>
+              <p className="text-gray-600 mb-4">{previewProject.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {previewProject.tags.map((tag, index) => (
+                  <span key={index} className="bg-accent/10 text-accent px-3 py-1 rounded-full text-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

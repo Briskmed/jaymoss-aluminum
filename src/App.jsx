@@ -1,10 +1,12 @@
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
 // Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Loader from './components/Loader';
 
 // Pages
 import Home from './pages/Home';
@@ -17,9 +19,27 @@ import NotFound from './pages/NotFound';
 
 function App() {
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const handleLoad = () => setIsLoading(false);
+
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
+
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
+      <AnimatePresence>
+        {isLoading && <Loader isLoading={isLoading} />}
+      </AnimatePresence>
       <Navbar />
       <main className="flex-grow">
         <AnimatePresence mode="wait">
