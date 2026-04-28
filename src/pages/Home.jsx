@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaShieldAlt, FaTools, FaStar, FaCheck } from 'react-icons/fa';
+import { FaWhatsapp } from 'react-icons/fa';
 
 // Sample images (replace with actual images)
 const heroImage = '/assets/specs/WhatsApp Image 2025-08-21 at 20.50.49_7690ae20.jpg';
@@ -173,6 +174,18 @@ const Home = () => {
           </Link>
         </div>
       </section>
+
+      {/* WhatsApp Chat Bubble */}
+      <a
+        href="https://wa.me/254724348301"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shadow-[0_4px_14px_0_rgba(37,211,102,0.39)] hover:bg-[#128C7E] hover:scale-110 hover:-translate-y-1 transition-all duration-300 group"
+        aria-label="Chat with us on WhatsApp"
+        title="Chat on WhatsApp"
+      >
+        <FaWhatsapp className="text-2xl md:text-3xl" />
+      </a>
     </div>
   );
 };
